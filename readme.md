@@ -1,15 +1,15 @@
-monday.vim‚ğGŠÛƒGƒfƒBƒ^‚ÖˆÚA‚µ‚Ä‚İ‚½
+ï»¿monday.vimã‚’ç§€ä¸¸ã‚¨ãƒ‡ã‚£ã‚¿ã¸ç§»æ¤ã—ã¦ã¿ãŸ
 ========
 
-vimƒGƒfƒBƒ^‚É–Ê”’‚¢ƒ}ƒNƒ‚ª‚ ‚Á‚½‚Ì‚ÅGŠÛƒGƒfƒBƒ^‚ÖˆÚA‚µ‚Ä‚İ‚Ü‚µ‚½B
+vimã‚¨ãƒ‡ã‚£ã‚¿ã«é¢ç™½ã„ãƒã‚¯ãƒ­ãŒã‚ã£ãŸã®ã§ç§€ä¸¸ã‚¨ãƒ‡ã‚£ã‚¿ã¸ç§»æ¤ã—ã¦ã¿ã¾ã—ãŸã€‚
 
-ƒL[‚ğ‰Ÿ‚·‚¾‚¯‚Å’PŒê‚ğƒCƒ“ƒNƒŠƒƒ“ƒgEƒfƒNƒŠƒƒ“ƒg‚Å‚«‚Ü‚·B
--January ¨ February ¨ March ¨ April
--class ¨ struct
--private ¨ public ¨ protected
--iterator ¨ const_iterator
--true ¨ false
+ã‚­ãƒ¼ã‚’æŠ¼ã™ã ã‘ã§å˜èªã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆãƒ»ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã§ãã¾ã™ã€‚
+-January â†’ February â†’ March â†’ April
+-class â†’ struct
+-private â†’ public â†’ protected
+-iterator â†’ const_iterator
+-true â†’ false
 
-### “®ìƒCƒ[ƒWiƒvƒƒOƒ‰ƒ}[Œü‚¯j ###
+### å‹•ä½œã‚¤ãƒ¡ãƒ¼ã‚¸ï¼ˆãƒ—ãƒ­ã‚°ãƒ©ãƒãƒ¼å‘ã‘ï¼‰ ###
 ![Alt text](switch_word_a.gif.gif)
 ![Alt text](switch_word_b.gif)
