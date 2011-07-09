@@ -11,5 +11,5 @@ vimエディタに面白いマクロがあったので秀丸エディタへ移�
 -true → false
 
 ### 動作イメージ ###
-![Alt text](https://github.com/ohtorii/switch_word/blob/master/switch_word_a.gif)
-![Alt text](https://github.com/ohtorii/switch_word/blob/master/switch_word_b.gif)
+![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160519.gif)
+![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160544.gif)
