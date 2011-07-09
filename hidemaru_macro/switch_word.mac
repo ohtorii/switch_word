@@ -1,0 +1,467 @@
+/*単語を切り替える（内部処理マクロ）
+
+（例）
+	true -> false -> true ...
+	class -> struct -> class ...
+	private -> protected -> public -> private ...
+	■ -> □ -> ■ ...
+	● -> ○ -> ● ...
+
+下記マクロから呼び出される。
+	switch_word_next.mac
+	switch_word_prev.mac
+
+
+http://d.hatena.ne.jp/ohtorii/
+*/
+
+
+////////////////////////////////////////////////////////////////////////////
+//		データ定義（必要に応じて編集して下さい）
+//		データの追加削除はパターン化しているので分かるかと思います。
+////////////////////////////////////////////////////////////////////////////
+$eos		= "";
+#num_tbl	= 0;
+
+//注意：大文字小文字は区別します
+
+//true -> false
+$word_tbl[#num_tbl][0] = "true";
+$word_tbl[#num_tbl][1] = "false";
+$word_tbl[#num_tbl][4] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//True -> False
+$word_tbl[#num_tbl][0] = "True";
+$word_tbl[#num_tbl][1] = "False";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//TRUE -> FALSE
+$word_tbl[#num_tbl][0] = "TRUE";
+$word_tbl[#num_tbl][1] = "FALSE";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//private -> protected -> public
+$word_tbl[#num_tbl][0] = "private";
+$word_tbl[#num_tbl][1] = "protected";
+$word_tbl[#num_tbl][2] = "public";
+$word_tbl[#num_tbl][3] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//class -> struct
+$word_tbl[#num_tbl][0] = "class";
+$word_tbl[#num_tbl][1] = "struct";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//■ -> □
+$word_tbl[#num_tbl][0] = "■";
+$word_tbl[#num_tbl][1] = "□";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//● -> ○
+$word_tbl[#num_tbl][0] = "●";
+$word_tbl[#num_tbl][1] = "○";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//▲ -> △
+$word_tbl[#num_tbl][0] = "▲";
+$word_tbl[#num_tbl][1] = "△";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//▼ -> ▽
+$word_tbl[#num_tbl][0] = "▼";
+$word_tbl[#num_tbl][1] = "▽";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//★ -> ☆
+$word_tbl[#num_tbl][0] = "★";
+$word_tbl[#num_tbl][1] = "☆";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//◆ -> ◇
+$word_tbl[#num_tbl][0] = "◆";
+$word_tbl[#num_tbl][1] = "◇";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//on -> off
+$word_tbl[#num_tbl][0] = "on";
+$word_tbl[#num_tbl][1] = "off";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//On -> Off
+$word_tbl[#num_tbl][0] = "On";
+$word_tbl[#num_tbl][1] = "Off";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//ON -> OFF
+$word_tbl[#num_tbl][0] = "ON";
+$word_tbl[#num_tbl][1] = "OFF";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//あり -> なし
+$word_tbl[#num_tbl][0] = "あり";
+$word_tbl[#num_tbl][1] = "なし";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//はい -> いいえ
+$word_tbl[#num_tbl][0] = "はい";
+$word_tbl[#num_tbl][1] = "いいえ";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//in -> out
+$word_tbl[#num_tbl][0] = "in";
+$word_tbl[#num_tbl][1] = "out";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//In -> Out
+$word_tbl[#num_tbl][0] = "In";
+$word_tbl[#num_tbl][1] = "Out";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//IN -> OUT
+$word_tbl[#num_tbl][0] = "IN";
+$word_tbl[#num_tbl][1] = "OUT";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//begin -> end
+$word_tbl[#num_tbl][0] = "begin";
+$word_tbl[#num_tbl][1] = "end";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//first -> last
+$word_tbl[#num_tbl][0] = "first";
+$word_tbl[#num_tbl][1] = "last";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//. -> ->
+$word_tbl[#num_tbl][0] = ".";
+$word_tbl[#num_tbl][1] = "->";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//* -> &
+$word_tbl[#num_tbl][0] = "*";
+$word_tbl[#num_tbl][1] = "&";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "iterator";
+$word_tbl[#num_tbl][1] = "const_iterator";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "reverse_iterator";
+$word_tbl[#num_tbl][1] = "const_reverse_iterator";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "unsigned";
+$word_tbl[#num_tbl][1] = "signed";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "min";
+$word_tbl[#num_tbl][1] = "max";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "yes";
+$word_tbl[#num_tbl][1] = "no";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "Yes";
+$word_tbl[#num_tbl][1] = "No";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//
+$word_tbl[#num_tbl][0] = "YES";
+$word_tbl[#num_tbl][1] = "NO";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//0...9
+$word_tbl[#num_tbl][0]	= "0";
+$word_tbl[#num_tbl][1]	= "1";
+$word_tbl[#num_tbl][2]	= "2";
+$word_tbl[#num_tbl][3]	= "3";
+$word_tbl[#num_tbl][4]	= "4";
+$word_tbl[#num_tbl][5]	= "5";
+$word_tbl[#num_tbl][6]	= "6";
+$word_tbl[#num_tbl][7]	= "7";
+$word_tbl[#num_tbl][8]	= "8";
+$word_tbl[#num_tbl][9]	= "9";
+$word_tbl[#num_tbl][10] = $eos;
+#num_tbl = #num_tbl + 1;
+
+$word_tbl[#num_tbl][0]	= "０";
+$word_tbl[#num_tbl][1]	= "１";
+$word_tbl[#num_tbl][2]	= "２";
+$word_tbl[#num_tbl][3]	= "３";
+$word_tbl[#num_tbl][4]	= "４";
+$word_tbl[#num_tbl][5]	= "５";
+$word_tbl[#num_tbl][6]	= "６";
+$word_tbl[#num_tbl][7]	= "７";
+$word_tbl[#num_tbl][8]	= "８";
+$word_tbl[#num_tbl][9]	= "９";
+$word_tbl[#num_tbl][10] = $eos;
+#num_tbl = #num_tbl + 1;
+
+$word_tbl[#num_tbl][0]	= "０";
+$word_tbl[#num_tbl][1]	= "１";
+$word_tbl[#num_tbl][2]	= "２";
+$word_tbl[#num_tbl][3]	= "３";
+$word_tbl[#num_tbl][4]	= "４";
+$word_tbl[#num_tbl][5]	= "５";
+$word_tbl[#num_tbl][6]	= "６";
+$word_tbl[#num_tbl][7]	= "７";
+$word_tbl[#num_tbl][8]	= "８";
+$word_tbl[#num_tbl][9]	= "９";
+$word_tbl[#num_tbl][10] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//①～⑳
+$word_tbl[#num_tbl][0]	= "①";
+$word_tbl[#num_tbl][1]	= "②";
+$word_tbl[#num_tbl][2]	= "③";
+$word_tbl[#num_tbl][3]	= "④";
+$word_tbl[#num_tbl][4]	= "⑤";
+$word_tbl[#num_tbl][5]	= "⑥";
+$word_tbl[#num_tbl][6]	= "⑦";
+$word_tbl[#num_tbl][7]	= "⑧";
+$word_tbl[#num_tbl][8]	= "⑨";
+$word_tbl[#num_tbl][9]	= "⑩";
+$word_tbl[#num_tbl][10] = "⑪";
+$word_tbl[#num_tbl][11] = "⑫";
+$word_tbl[#num_tbl][12] = "⑬";
+$word_tbl[#num_tbl][13] = "⑭";
+$word_tbl[#num_tbl][14] = "⑮";
+$word_tbl[#num_tbl][15] = "⑯";
+$word_tbl[#num_tbl][16] = "⑰";
+$word_tbl[#num_tbl][17] = "⑱";
+$word_tbl[#num_tbl][18] = "⑲";
+$word_tbl[#num_tbl][19] = "⑳";
+$word_tbl[#num_tbl][20] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//月（先頭大文字バージョン）
+$word_tbl[#num_tbl][0]	= "January";
+$word_tbl[#num_tbl][1]	= "February";
+$word_tbl[#num_tbl][2]	= "March";
+$word_tbl[#num_tbl][3]	= "April";
+$word_tbl[#num_tbl][4]	= "May";
+$word_tbl[#num_tbl][5]	= "June";
+$word_tbl[#num_tbl][6]	= "July";
+$word_tbl[#num_tbl][7]	= "August";
+$word_tbl[#num_tbl][8]	= "September";
+$word_tbl[#num_tbl][9]	= "October";
+$word_tbl[#num_tbl][10] = "November";
+$word_tbl[#num_tbl][11] = "December";
+$word_tbl[#num_tbl][12] = $eos;
+#num_tbl = #num_tbl + 1;
+
+//月（小文字バージョン）
+$word_tbl[#num_tbl][0]	= "january";
+$word_tbl[#num_tbl][1]	= "february";
+$word_tbl[#num_tbl][2]	= "march";
+$word_tbl[#num_tbl][3]	= "april";
+$word_tbl[#num_tbl][4]	= "may";
+$word_tbl[#num_tbl][5]	= "june";
+$word_tbl[#num_tbl][6]	= "july";
+$word_tbl[#num_tbl][7]	= "august";
+$word_tbl[#num_tbl][8]	= "september";
+$word_tbl[#num_tbl][9]	= "october";
+$word_tbl[#num_tbl][10] = "november";
+$word_tbl[#num_tbl][11] = "december";
+$word_tbl[#num_tbl][12] = $eos;
+#num_tbl = #num_tbl + 1;
+
+// #if 0
+$word_tbl[#num_tbl][0] = "#if 0";
+$word_tbl[#num_tbl][1] = "#if 1";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+$word_tbl[#num_tbl][0] = "#if\t0";
+$word_tbl[#num_tbl][1] = "#if\t1";
+$word_tbl[#num_tbl][2] = $eos;
+#num_tbl = #num_tbl + 1;
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+//			処理本体（以下は編集しないようお願いします。）
+////////////////////////////////////////////////////////////////////////////
+#g_index_row = -1;
+#g_index_col = -1;
+call Main;
+endmacro;
+
+
+Main:
+	if(rectselecting){
+		message("矩形選択は対応していません");
+		return false;
+	}
+
+	//動作環境を固定化する。
+	//折りたたみを維持,部分編集を維持,範囲選択,最後に移動
+	//マクロ終了時に元に戻る。
+	setcompatiblemode 0x0003|0x000c|0x0200|0x2000;
+	disabledraw;
+	if(selecting){
+		//選択あり、そのまま使う。
+		call Proc ##is_next;
+		##ret = ##return;
+	}else{
+		//選択なし
+		//１文字選択して試す。
+		//一文字のデータ(1 -> 2 -> 3...)を考慮。
+		if((0x0d == code)||(-1==code)){
+			call SelectRange column, lineno, column-1,lineno;
+		}else{
+			call SelectRange column, lineno, column+1,lineno;
+		}
+		call Proc ##is_next;
+		##ret = ##return;
+		if(! ##ret){
+			//次は単語選択して試す。
+			escape;
+			selectword;
+			call Proc ##is_next;
+			##ret = ##return;
+		}
+	}
+	return ##ret;
+
+
+/*
+	返値	変換無し	0
+			変換あり	1
+*/
+Proc:
+	##is_next	= true;
+	if(argcount){
+		##is_next	= val(getarg(0));
+	}
+
+	//選択された単語を取得する
+	$$sel_word		= gettext(seltopx, seltopy, selendx, selendy, 1);
+	if($$sel_word == $eos){
+		return false;
+	}
+	call FindNextWord $$sel_word, ##is_next;
+	$$next_word = $$return;
+	if($eos == $$next_word){
+		return false;
+	}
+
+	begingroupundo;
+	delete;
+	##old_column=column;
+	##old_lineno=lineno;
+	insert $$next_word;
+	//選択しておいて何度も呼ばれたときに備える。（使い勝手の向上なのでコメントアウトしても構わない）
+	call SelectRange ##old_column, ##old_lineno, ##old_column+strlen($$next_word), lineno;
+	endgroupundo;
+	return true;
+
+
+FindTableIndex:
+	$$sel_word = $$1;
+
+	##i = 0;
+	while(##i < #num_tbl){
+		##j = 0;
+		while(1){
+			$$word = $word_tbl[##i][##j];
+			if($$word == $eos){
+				break;
+			}
+			if($$sel_word == $$word){
+				#g_index_row = ##i;
+				#g_index_col = ##j;
+				return true;
+			}
+			##j=##j+1;
+		}
+		##i=##i+1;
+	}
+	return false;
+
+
+/*	テーブルから次の文字列を取得する
+	返値	成功：次の文字列
+			失敗：$eos
+*/
+FindNextWord:
+	$$sel_word	= $$1;
+	##is_next	= ##2;
+	call FindTableIndex $$sel_word;
+	if(! return){
+		return $eos;
+	}
+
+	//変換先の単語を取り出す
+	if(##is_next){
+		//次の単語へ
+		$$next = $word_tbl[#g_index_row][#g_index_col + 1];
+		if($$next == $eos){
+			//一周したので先頭へもどる
+			$$next = $word_tbl[#g_index_row][0];
+		}
+	}else{
+		//前の単語へ
+		if(#g_index_col==0){
+			//最後の単語を返す（秀丸マクロは配列長を求めることが出来ないのでループで回す）
+			##i 	= 0;
+			$$next	= $eos;
+			while(1){
+				if($eos == $word_tbl[#g_index_row][##i]){
+					$$next = $word_tbl[#g_index_row][##i - 1];
+					break;
+				}
+				##i = ##i + 1;
+			}
+		}else{
+			$$next = $word_tbl[#g_index_row][#g_index_col - 1];
+		}
+	}
+	return $$next;
+
+SelectRange:
+	escape;
+	movetolineno 1+##1, ##2;
+	beginsel;
+	movetolineno 1+##3, ##4;
+	endsel;
+	return ;

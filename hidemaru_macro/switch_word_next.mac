@@ -1,0 +1,7 @@
+/*単語を切り替える（一つ次へ）
+
+秀丸エディタ ver8以降で動作。
+キーアサインして下さい。
+http://d.hatena.ne.jp/ohtorii/
+*/
+execmacro currentmacrodirectory+"\\switch_word.mac","1";
