@@ -3,7 +3,9 @@
 
 vimエディタに面白いマクロがあったので秀丸エディタへ移植してみました。
 
-キーを押すだけで単語をインクリメント・デクリメントできます。
+キーを押すと単語をインクリメント・デクリメントできます。
+* foo
++ bar
 - January → February → March → April
 - class → struct
 - private → public → protected
