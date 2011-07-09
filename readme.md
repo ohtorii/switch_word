@@ -4,12 +4,12 @@
 vimエディタに面白いマクロがあったので秀丸エディタへ移植してみました。
 
 キーを押すだけで単語をインクリメント・デクリメントできます。
--January → February → March → April
--class → struct
--private → public → protected
--iterator → const_iterator
--true → false
+- January → February → March → April
+- class → struct
+- private → public → protected
+- iterator → const_iterator
+- true → false
 
 ### 動作イメージ ###
-![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160519.gif)
-![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160544.gif)
+- ![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160519.gif)
+- ![Alt text](http://cdn-ak.f.st-hatena.com/images/fotolife/o/ohtorii/20110708/20110708160544.gif)
