@@ -10,6 +10,6 @@ vimエディタに面白いマクロがあったので秀丸エディタへ移�
 -iterator → const_iterator
 -true → false
 
-### 動作イメージ（プログラマー向け） ###
-![Alt text](/switch_word_a.gif)
-![Alt text](/switch_word_b.gif)
+### 動作イメージ ###
+![Alt text](https://github.com/ohtorii/switch_word/blob/master/switch_word_a.gif)
+![Alt text](https://github.com/ohtorii/switch_word/blob/master/switch_word_b.gif)
