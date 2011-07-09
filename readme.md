@@ -1,11 +1,9 @@
-﻿monday.vimを秀丸エディタへ移植してみた
+﻿monday.vimを秀丸エディタへ移植してみた。
 ========
 
 vimエディタに面白いマクロがあったので秀丸エディタへ移植してみました。
 
-キーを押すと単語をインクリメント・デクリメントできます。
-* foo
-+ bar
+### キーを押すと単語をインクリメント・デクリメントできます。 ###
 - January → February → March → April
 - class → struct
 - private → public → protected
