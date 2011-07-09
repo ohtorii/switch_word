@@ -11,5 +11,5 @@ vimエディタに面白いマクロがあったので秀丸エディタへ移�
 -true → false
 
 ### 動作イメージ（プログラマー向け） ###
-![Alt text](switch_word_a.gif.gif)
-![Alt text](switch_word_b.gif)
+![Alt text](/switch_word_a.gif)
+![Alt text](/switch_word_b.gif)
